@@ -1,0 +1,11 @@
+# Python packages for CampusConnect.
+# NOTHING IS INSTALLED YET. This list will be filled in with exact versions
+# (using `pip freeze > requirements.txt`) when we install packages in a later step.
+#
+# Planned packages:
+#   Flask
+#   Flask-SQLAlchemy
+#   Flask-Migrate
+#   psycopg[binary]
+#   firebase-admin
+#   python-dotenv

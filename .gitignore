@@ -1,0 +1,58 @@
+# =========================================================
+# CampusConnect .gitignore
+# Files listed here are NEVER uploaded to GitHub.
+# =========================================================
+
+# ---------- Secrets & credentials (most important!) ----------
+# Real environment settings (database password, secret key, ...)
+.env
+.env.*
+!.env.example
+
+# Firebase Admin SDK service account keys (private JSON keys)
+*firebase-adminsdk*.json
+serviceAccountKey*.json
+service-account*.json
+firebase-credentials*.json
+credentials/
+secrets/
+
+# Other private key / certificate files
+*.pem
+*.key
+*.p12
+*.pfx
+
+# ---------- Python ----------
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Flask instance folder (local config / local data)
+instance/
+
+# Testing & coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# ---------- Logs & local databases ----------
+*.log
+logs/
+*.sqlite3
+*.db
+
+# ---------- Editors & operating systems ----------
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+desktop.ini
