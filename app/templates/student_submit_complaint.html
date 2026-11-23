@@ -1,0 +1,82 @@
+<!-- app/templates/student_submit_complaint.html
+     Purpose: Form for a student to submit a new complaint.
+     Checked by static/js/student-validation.js and sent by
+     static/js/student-submit-complaint.js. -->
+{% extends "student_base.html" %}
+
+{% block title %}Submit a Complaint{% endblock %}
+{% block page_id %}submit{% endblock %}
+
+{% block content %}
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <a href="{{ url_for('student.dashboard') }}">Dashboard</a> › Submit a complaint
+</nav>
+
+<div class="page-header">
+  <div>
+    <h1>Submit a complaint</h1>
+    <p>Tell us what the problem is. Fields marked <span class="required">*</span> are required.</p>
+  </div>
+</div>
+
+<!-- Shown after a successful submission (filled in by JavaScript). -->
+<div id="submit-success" hidden></div>
+
+<section class="card" id="form-card">
+  <!-- Error summary: lists all problems after pressing Submit. -->
+  <div id="error-summary" class="alert alert-error" role="alert" tabindex="-1" hidden></div>
+
+  <!-- novalidate: we use our own JavaScript checks and messages instead of
+       the browser's built-in pop-ups, so every browser looks the same. -->
+  <form id="complaint-form" novalidate>
+    <div class="form-group">
+      <label for="title">Title <span class="required" aria-hidden="true">*</span></label>
+      <input type="text" id="title" name="title" maxlength="100" required
+             aria-describedby="title-hint title-count title-error" autocomplete="off"
+             placeholder="e.g. Projector not working in Room B-204">
+      <p class="hint" id="title-hint">A short summary of the problem (5–100 characters).</p>
+      <p class="char-count" id="title-count" aria-live="polite"></p>
+      <p class="field-error" id="title-error"></p>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="category_id">Category <span class="required" aria-hidden="true">*</span></label>
+        <select id="category_id" name="category_id" required aria-describedby="category_id-error">
+          <option value="">Loading…</option>
+        </select>
+        <p class="field-error" id="category_id-error"></p>
+      </div>
+
+      <div class="form-group">
+        <label for="department_id">Department <span class="required" aria-hidden="true">*</span></label>
+        <select id="department_id" name="department_id" required aria-describedby="department_id-hint department_id-error">
+          <option value="">Loading…</option>
+        </select>
+        <p class="hint" id="department_id-hint">The office that should handle this complaint.</p>
+        <p class="field-error" id="department_id-error"></p>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="description">Description <span class="required" aria-hidden="true">*</span></label>
+      <textarea id="description" name="description" maxlength="1000" required
+                aria-describedby="description-hint description-count description-error"
+                placeholder="What happened, where, and since when?"></textarea>
+      <p class="hint" id="description-hint">Include as much detail as you can (20–1000 characters).</p>
+      <p class="char-count" id="description-count" aria-live="polite"></p>
+      <p class="field-error" id="description-error"></p>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary" id="submit-button">Submit complaint</button>
+      <a class="btn btn-secondary" href="{{ url_for('student.dashboard') }}">Cancel</a>
+    </div>
+  </form>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/student-validation.js') }}"></script>
+<script src="{{ url_for('static', filename='js/student-submit-complaint.js') }}"></script>
+{% endblock %}

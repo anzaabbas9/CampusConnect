@@ -1,0 +1,59 @@
+<!-- app/templates/student_complaints.html
+     Purpose: "My Complaints" - every complaint of the logged-in student, with
+     search, status/category filters and sorting.
+     Filled in by static/js/student-complaints.js. -->
+{% extends "student_base.html" %}
+
+{% block title %}My Complaints{% endblock %}
+{% block page_id %}complaints{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div>
+    <h1>My Complaints</h1>
+    <p>Search and filter the complaints you have submitted.</p>
+  </div>
+  <a class="btn btn-primary" href="{{ url_for('student.submit_complaint') }}">+ Submit a complaint</a>
+</div>
+
+<section class="card">
+  <form class="filters" id="filters" role="search" aria-label="Filter complaints">
+    <div>
+      <label for="filter-search">Search</label>
+      <input type="search" id="filter-search" name="q" maxlength="100"
+             placeholder="Title, description or number (e.g. 1005)" autocomplete="off">
+    </div>
+    <div>
+      <label for="filter-status">Status</label>
+      <select id="filter-status" name="status">
+        <option value="">All statuses</option>
+      </select>
+    </div>
+    <div>
+      <label for="filter-category">Category</label>
+      <select id="filter-category" name="category">
+        <option value="">All categories</option>
+      </select>
+    </div>
+    <div>
+      <label for="filter-sort">Sort by</label>
+      <select id="filter-sort" name="sort">
+        <option value="newest">Newest first</option>
+        <option value="oldest">Oldest first</option>
+        <option value="updated">Recently updated</option>
+      </select>
+    </div>
+  </form>
+
+  <div class="card-header">
+    <p class="results-summary" id="results-summary" aria-live="polite">Loading…</p>
+    <button type="button" class="btn-link" id="clear-filters" hidden>Clear filters</button>
+  </div>
+
+  <div id="complaint-results"><p class="loading">Loading…</p></div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/student-complaints.js') }}"></script>
+{% endblock %}

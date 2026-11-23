@@ -13,6 +13,7 @@ from flask import Flask
 
 from app.extensions import db, migrate
 from app.routes.pages import pages_bp
+from app.routes.student import student_bp
 from config import Config
 
 # Settings the app cannot run without, and the .env variable each one comes from.
@@ -50,5 +51,6 @@ def create_app(config_class=Config):
     #    Only "pages" is ready. The users and complaints blueprints will be
     #    registered here once they have routes.
     app.register_blueprint(pages_bp)
+    app.register_blueprint(student_bp)  # Student Module pages (/student/...)
 
     return app
