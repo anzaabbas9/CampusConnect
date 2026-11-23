@@ -1,0 +1,25 @@
+<!-- app/templates/student_complaint_detail.html
+     Purpose: One complaint - its details, current status (progress tracker)
+     and the history of complaint updates.
+     Filled in by static/js/student-complaint-detail.js. -->
+{% extends "student_base.html" %}
+
+{% block title %}Complaint #{{ complaint_id }}{% endblock %}
+{% block page_id %}complaint-detail{% endblock %}
+
+{% block content %}
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <a href="{{ url_for('student.dashboard') }}">Dashboard</a> ›
+  <a href="{{ url_for('student.my_complaints') }}">My Complaints</a> ›
+  Complaint #{{ complaint_id }}
+</nav>
+
+<!-- data-complaint-id tells the JavaScript which complaint to load. -->
+<div id="complaint-detail" data-complaint-id="{{ complaint_id }}" aria-live="polite">
+  <p class="loading">Loading complaint…</p>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/student-complaint-detail.js') }}"></script>
+{% endblock %}

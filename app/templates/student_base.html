@@ -1,0 +1,68 @@
+<!-- app/templates/student_base.html
+     Purpose: Shared layout for all Student Module pages (header, navigation,
+     preview banner, footer). Each student page "extends" this file and fills
+     in its "block" sections (title, page_id, content, scripts). -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Student{% endblock %} · CampusConnect</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/student.css') }}">
+</head>
+<body data-use-sample-data="{{ 'true' if use_sample_data else 'false' }}"
+      data-page="{% block page_id %}{% endblock %}">
+
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="{{ url_for('student.dashboard') }}">
+        <span class="brand-mark" aria-hidden="true">CC</span>
+        <span class="brand-text">CampusConnect <small>Student</small></span>
+      </a>
+
+      <button class="nav-toggle" type="button" aria-expanded="false"
+              aria-controls="main-nav" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+
+      <nav id="main-nav" class="main-nav" aria-label="Student navigation">
+        <a href="{{ url_for('student.dashboard') }}"
+           {% if active_page == 'dashboard' %}class="active" aria-current="page"{% endif %}>Dashboard</a>
+        <a href="{{ url_for('student.my_complaints') }}"
+           {% if active_page == 'complaints' %}class="active" aria-current="page"{% endif %}>My Complaints</a>
+        <a href="{{ url_for('student.submit_complaint') }}"
+           class="nav-cta{% if active_page == 'submit' %} active{% endif %}"
+           {% if active_page == 'submit' %}aria-current="page"{% endif %}>+ New Complaint</a>
+      </nav>
+    </div>
+  </header>
+
+  {% if use_sample_data %}
+  <!-- Shown only in preview mode, so nobody mistakes sample data for real data. -->
+  <div class="preview-banner" role="note">
+    <div class="container">
+      <strong>Preview mode:</strong> this page shows <strong>sample data</strong> only.
+      Nothing is read from or saved to the database.
+    </div>
+  </div>
+  {% endif %}
+
+  <main id="main" class="container page">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">CampusConnect · Smart University Help Desk</div>
+  </footer>
+
+  <!-- Scripts. The sample-data file is loaded ONLY in preview mode, so real
+       pages never contain sample complaints. -->
+  {% if use_sample_data %}
+  <script src="{{ url_for('static', filename='js/student-sample-data.js') }}"></script>
+  {% endif %}
+  <script src="{{ url_for('static', filename='js/student-common.js') }}"></script>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

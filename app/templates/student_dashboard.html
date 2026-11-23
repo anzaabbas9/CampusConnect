@@ -1,0 +1,55 @@
+<!-- app/templates/student_dashboard.html
+     Purpose: Student dashboard - complaint counts by status, recent complaints
+     and latest activity. Filled in by static/js/student-dashboard.js. -->
+{% extends "student_base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+{% block page_id %}dashboard{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div>
+    <h1>Welcome back</h1>
+    <p id="dashboard-summary">Loading your complaints…</p>
+  </div>
+  <a class="btn btn-primary" href="{{ url_for('student.submit_complaint') }}">+ Submit a complaint</a>
+</div>
+
+<section aria-label="Complaints by status">
+  <div class="stats-grid" id="stats-grid">
+    <a class="stat-card stat-open" href="{{ url_for('student.my_complaints', status='Open') }}">
+      <span class="stat-value" data-stat="Open">–</span><span class="stat-label">Open</span>
+    </a>
+    <a class="stat-card stat-progress" href="{{ url_for('student.my_complaints', status='In Progress') }}">
+      <span class="stat-value" data-stat="In Progress">–</span><span class="stat-label">In Progress</span>
+    </a>
+    <a class="stat-card stat-resolved" href="{{ url_for('student.my_complaints', status='Resolved') }}">
+      <span class="stat-value" data-stat="Resolved">–</span><span class="stat-label">Resolved</span>
+    </a>
+    <a class="stat-card stat-closed" href="{{ url_for('student.my_complaints', status='Closed') }}">
+      <span class="stat-value" data-stat="Closed">–</span><span class="stat-label">Closed</span>
+    </a>
+  </div>
+</section>
+
+<div class="detail-layout">
+  <section class="card" aria-labelledby="recent-heading">
+    <div class="card-header">
+      <h2 id="recent-heading">Recent complaints</h2>
+      <a href="{{ url_for('student.my_complaints') }}">View all</a>
+    </div>
+    <div id="recent-complaints"><p class="loading">Loading…</p></div>
+  </section>
+
+  <section class="card" aria-labelledby="activity-heading">
+    <div class="card-header">
+      <h2 id="activity-heading">Latest updates</h2>
+    </div>
+    <div id="latest-activity"><p class="loading">Loading…</p></div>
+  </section>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/student-dashboard.js') }}"></script>
+{% endblock %}
